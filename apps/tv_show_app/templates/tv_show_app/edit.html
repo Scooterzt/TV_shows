@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Edit</title>
+</head>
+<body>
+    <h1>Edit Show {{show.id}}</h1>
+    <form action="/shows/{{show.id}}/edit" method="POST">
+        {% csrf_token %}
+        Title: <input type="text" name="edit_title"><br>
+        Network: <input type="text" name="network"><br>
+        Release Date: <input type="date" name="release_date"><br>
+        Description:
+        <textarea name="decription" cols="30" rows="10"></textarea>
+        <input type="submit" value="Add" style="width: 100px">
+    </form>
+</body>
+</html>
