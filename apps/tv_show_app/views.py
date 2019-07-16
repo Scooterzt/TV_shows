@@ -23,7 +23,7 @@ def add_show(request):
         release_date=request.POST["release_date"],
         decription=request.POST["decription"],
         )
-    return redirect("/shows")
+    return redirect("/shows/" + str(new_show.id))
 
 def edit_page(request, show_id):
     context = {
@@ -31,11 +31,16 @@ def edit_page(request, show_id):
     }
     return render (request, "tv_show_app/edit.html", context)
 
+def edit_show(request, show_id):
+    edit_show = Shows.objects.get(id=show_id)
+    edit_show.title = request.POST["edit_title"]
+    edit_show.network = request.POST["network"]
+    edit_show.release_date = request.POST["release_date"]
+    edit_show.decription = request.POST["decription"]
+    edit_show.save()
+    return redirect ("/shows/" + str(edit_show.id))
 
-    # edit_show = Shows.objects.get(id=show_id)
-    # edit_show.title = request.POST["edit_title"]
-    # edit_show.network = request.POST["network"]
-    # edit_show.release_date = request.POST["release_date"]
+
 
 def destroy(request, show_id):
     Shows.objects.get(id = show_id).delete()

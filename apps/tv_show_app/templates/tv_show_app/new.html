@@ -5,20 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Add New</title>
+    <style>
+        * {
+            margin: 10px;
+            vertical-align: top;
+        }
+        p{
+            display: inline-block;
+        }
+    </style>
 </head>
 <body>
     <h1>Add New Show</h1>
     <form action="/shows/add_show" method="POST">
         {% csrf_token %}
-        Title: <input type="text" name="show_title" required="required"><br>
-        Network: <input type="text" name="network"><br>
-        Release Date: <input type="date" name="release_date"><br>
-        Description:
-        <textarea name="decription" cols="30" rows="10"></textarea>
-        <input type="submit" name="submit" value="Add" style="width: 100px">
+        <p> Title: </p> 
+        <input type="text" name="show_title" required="required"><br>
+        <p> Network: </p> 
+        <input type="text" name="network"><br>
+        <p> Release Date: </p>
+        <input type="date" name="release_date"><br>
+        <p> Description: </p><br>
+        <textarea name="decription" cols="30" rows="5"></textarea><br>
+        <button type="submit" style="width: 100px">Create</button>
     </form>
-    <form action="/shows">
-        <input type="submit" value="Create" style="width: 100px">
-    </form>
+    <a href="/shows">Go back to Show's List</a>
 </body>
 </html>
