@@ -17,10 +17,17 @@
 </head>
 <body>
     <h1>Add New Show</h1>
+        {% if messages %}
+        <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+        </ul>
+        {% endif %}
     <form action="/shows/add_show" method="POST">
         {% csrf_token %}
         <p> Title: </p> 
-        <input type="text" name="show_title" required="required"><br>
+        <input type="text" name="title" required="required"><br>
         <p> Network: </p> 
         <input type="text" name="network"><br>
         <p> Release Date: </p>

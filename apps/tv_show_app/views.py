@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from .models import Shows
 
 def shows(request):
@@ -17,8 +18,13 @@ def display_show(request, show_id):
     return render (request, "tv_show_app/display_show.html", context)
 
 def add_show(request):
+    errors = Shows.objects.basic_validator(request.POST)
+    if len(errors) > 0:
+        for key, values in errors.items():
+            messages.error(request, values)
+        return redirect("/shows/new")
     new_show = Shows.objects.create(
-        title=request.POST["show_title"],
+        title=request.POST["title"],
         network=request.POST["network"],
         release_date=request.POST["release_date"],
         decription=request.POST["decription"],
@@ -33,7 +39,12 @@ def edit_page(request, show_id):
 
 def edit_show(request, show_id):
     edit_show = Shows.objects.get(id=show_id)
-    edit_show.title = request.POST["edit_title"]
+    errors = Shows.objects.basic_validator(request.POST)
+    if len(errors) > 0:
+        for key, values in errors.items():
+            messages.error(request, values)
+        return redirect(f"/shows/{edit_show.id}/edit/")
+    edit_show.title = request.POST["title"]
     edit_show.network = request.POST["network"]
     edit_show.release_date = request.POST["release_date"]
     edit_show.decription = request.POST["decription"]
